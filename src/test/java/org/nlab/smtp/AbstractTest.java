@@ -3,7 +3,7 @@ package org.nlab.smtp;
 import com.google.common.base.Stopwatch;
 import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetupTest;
+import com.icegreen.greenmail.util.ServerSetup;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class AbstractTest {
 
-    public static final int PORT = 3025;
+    public static final int PORT = 4025;
     public static final int MAX_CONNECTION = 8;
 
     protected SmtpConnectionPool smtpConnectionPool;
@@ -64,7 +64,8 @@ public class AbstractTest {
     }
 
     protected void startServer() {
-        greenMail = new GreenMail(ServerSetupTest.SMTP);
+        ServerSetup serverSetup = new ServerSetup(4025, "localhost", "smtp");
+        greenMail = new GreenMail(serverSetup);
         greenMail.start();
     }
 
